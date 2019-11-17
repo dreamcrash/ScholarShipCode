@@ -389,6 +389,21 @@ void cipher_idea(byte *text1, byte *text2, int *key, int text1_lenght){
 	}   // End for loop.
     }   
 
+void  freeIdeatest    (Ideatest **data){
+    
+    Ideatest *ptr_data = *data;
+    
+    free(ptr_data->DK);
+    free(ptr_data->Z);
+    free(ptr_data->crypt1);
+    free(ptr_data->plain1);
+    free(ptr_data->plain2);
+    free(ptr_data->userkey);
+    free(ptr_data);
+    
+    *data = NULL;
+    
+}
 
 void JGFvalidate(Ideatest *data){
     

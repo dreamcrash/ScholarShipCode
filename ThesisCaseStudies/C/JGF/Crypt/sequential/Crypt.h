@@ -32,6 +32,7 @@ void    calcDecryptKey  (Ideatest *data);
 int     inv             (int x);
 void    Do              (Ideatest *data);
 void    cipher_idea     (byte *text1, byte *text2, int *key, int text1_lenght);
+void    freeIdeatest    (Ideatest **data);
 void    JGFvalidate     (Ideatest *data);
 #ifdef __cplusplus
 extern "C" {
