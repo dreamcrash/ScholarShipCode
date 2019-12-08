@@ -1,13 +1,13 @@
 /* 
  * File:   main.c
- * Author: Bruno Medeiros
+ * Author: dreamcrash
  *
  * Created on 14 de Outubro de 2016, 17:22
  */
 
 /**
  * 
- * @author Bruno Medeiros
+ * @author dreamcrash
  * 
  * This code is the result of reusing the Crypt case study from 
  * JGF JAVA Benchmarks and adapting it to C.

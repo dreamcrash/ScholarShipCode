@@ -1,6 +1,6 @@
 /* 
  * File:   Crypt.h
- * Author: Bruno Medeiros
+ * Author: dreamcrash
  *
  * Created on 14 de Outubro de 2016, 17:23
  */

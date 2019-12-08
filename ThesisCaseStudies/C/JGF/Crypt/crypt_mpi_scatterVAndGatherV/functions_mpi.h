@@ -1,6 +1,6 @@
 /* 
  * File:   functions_mpi.h
- * Author: Bruno Medeiros.
+ * Author: dreamcrash.
  *
  * Created on 13 de Outubro de 2016, 18:56
  */
