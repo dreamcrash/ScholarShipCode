@@ -35,7 +35,7 @@ void free_sparse(Sparse **sparse){
     free((*sparse)->x);
     free((*sparse)->y);
     free((*sparse));
-    *sparse         = NULL;
+    (*sparse) = NULL;
 }
 
 int JGFinitialise(Sparse *sparse){
