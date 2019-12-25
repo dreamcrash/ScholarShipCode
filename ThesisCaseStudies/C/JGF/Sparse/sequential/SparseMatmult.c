@@ -138,13 +138,13 @@ void JGFvalidate(Sparse *sparse){
     
     double refval[] = { 75.205209621081394, 150.325289707762209, 
                         750.707296942218136, 1499.080290091720144, 
-                        2250.518217459347852, 2996.983934703003797};
+                        2250.518217459347852};
     
     double dev = abs_double(sparse->ytotal - refval[sparse->size]);
     if (dev > 1.0e-12)
     {
         printf("Validation failed \n");
-	printf("ytotal = %.15f %f %d \n", sparse->ytotal, dev, sparse->size);
+	printf("ytotal = %.15f %.15f %d \n", sparse->ytotal, dev, sparse->size);
     }
   }
 
