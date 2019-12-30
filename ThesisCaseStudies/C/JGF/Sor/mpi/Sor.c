@@ -52,8 +52,8 @@ void JGFKernel(Sor *sor){
     const int rank          = getProcessId();
     const int nprocess      = numberProcess();
     
-    const int p_G_lenght = sor->p_row + 2;
     calculateMatricesSizes(sor, nprocess, rank);
+    const int p_G_lenght = sor->p_row + 2;
     double (*p_G) [sor->N]    = malloc(sizeof *p_G * p_G_lenght);
     double (*G)   [sor->N]    = (rank == 0) ? malloc(sizeof *G * sor->M) 
                                             : NULL;
@@ -114,20 +114,20 @@ void sor_simulation (   double omega, int p_G_lenght, int N, double p_G[p_G_leng
     int Nm1 = N-1;
     int end = p_G_lenght - 2;
     int master = rank == 0;
+    int firstRowBlackIteration = master ? 3 : 1;
 
    for (int p = 0; p < num_iterations; p++) 
    {
-        row_iterations( p_G_lenght, N, p_G, omega_over_four, one_minus_omega, end,
-                        Mm1, Nm1, rank, nprocess, master, 2 );
-        row_iterations( p_G_lenght, N, p_G, omega_over_four, one_minus_omega, end,
-                        Mm1, Nm1, rank, nprocess, master, master ? 3 : 1);
+        row_iterations( 2, end, p_G_lenght, N, p_G, omega_over_four, one_minus_omega,
+                        Mm1, Nm1, rank, nprocess, master);
+        row_iterations( firstRowBlackIteration, end , p_G_lenght, N, p_G, omega_over_four, one_minus_omega,
+                        Mm1, Nm1, rank, nprocess, master);
     }   
 }
 
-void row_iterations(    int p_G_lenght, int N, double p_G[p_G_lenght][N], 
+void row_iterations(    int i, int end, int p_G_lenght, int N, double p_G[p_G_lenght][N], 
                         double omega_over_four, double one_minus_omega,
-                        int end, int Mm1, int Nm1, int rank, int nprocess,
-                        int master, int i){
+                        int Mm1, int Nm1, int rank, int nprocess, int master){
 
             // Dealing with the first row
         if(((i == 2) && master) || (i==1))

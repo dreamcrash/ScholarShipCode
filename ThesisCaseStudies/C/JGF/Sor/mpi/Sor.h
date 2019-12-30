@@ -33,18 +33,12 @@ void JGFKernel      (Sor *sor);
 void RandomMatrix   (int M, int N, double G [M][N]);
 void sor_simulation     (double omega, int p_G_lenght, int N, 
                             double p_G[p_G_lenght][N], int JACOBI_NUM_ITER, 
-                            int rank, int nprocess
-                        );
-void row_iterations     (int p_G_lenght, int N, double p_G[p_G_lenght][N], 
+                            int rank, int nprocess);
+void row_iterations     (int i, int end, int p_G_lenght, int N, double p_G[p_G_lenght][N], 
                             double omega_over_four, double one_minus_omega,
-                            int end, int Mm1, int Nm1, 
-                            int rank, int nprocess,
-                            int master, int i
-                        );
+                            int Mm1, int Nm1, int rank, int nprocess, int master);
 void swap_rows          (int last_process, int master, int p_G_lenght, 
-                            int N, double p_G[p_G_lenght][N], int rank
-                        );
-
+                            int N, double p_G[p_G_lenght][N], int rank);
 void middle_rows    (int m, int n, double G[m][n],
                         const double omega_over_four, const double one_minus_omega, 
                         const int Nm1, int i, double *Gi, double *Gim1);
