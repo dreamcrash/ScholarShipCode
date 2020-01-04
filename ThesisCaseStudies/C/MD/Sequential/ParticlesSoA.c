@@ -309,7 +309,6 @@ void force3Law(MD *md, Particles *p, int particleA){
 	        const double rrd7 = rrd6 * rrd;
 	        const double r148 = rrd7 - 0.5 * rrd4;
 	         
-                /** Using temporary variables allows to save a thread multiplication Operations*/
                 const double tmpFx = xx * r148;       
                 const double tmpFy = yy * r148;
                 const double tmpFz = zz * r148;

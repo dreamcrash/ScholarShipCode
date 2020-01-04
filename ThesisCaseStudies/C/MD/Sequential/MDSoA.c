@@ -7,12 +7,10 @@
 
 MD *newMD(int size,int *datasizes, int iterations){
     
-    int mm;
-    
     MD *md = malloc(sizeof (MD));
     md->size = size;
     md->movemx = iterations;
-    mm = datasizes[md->size];
+    int mm = datasizes[md->size];
     md->mdsize = mm * mm * mm * 4;
     
     /** Creating the Particles structure */
@@ -92,7 +90,7 @@ void cicleDoMove(MD *md){
 }
 
 /** Compute forces with 3 Newton's Law*/ 
-void cicleForcesApproach(MD *md){
+void cicleForces(MD *md){
 
     md->epot = md->vir = 0.0;
     
@@ -139,11 +137,11 @@ void getFullPotentialEnergy(MD *md, int move){
 
 /** MD Simulation */
 void runMD(MD *md){
-     
+    
     for(int move = 0; move < md->movemx; ++move)
     {
         cicleDoMove                  (md);
-        cicleForcesApproach          (md);
+        cicleForces                  (md);
         cicleMkekin                  (md);
         cicleVelavg                  (md);
         scaleTemperature             (md,move);
