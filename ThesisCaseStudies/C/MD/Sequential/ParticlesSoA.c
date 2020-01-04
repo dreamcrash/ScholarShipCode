@@ -282,12 +282,12 @@ void force3Law(MD *md, Particles *p, int particleA){
 	int interactions = 0;
         
 	/** Calculate the force interaction between pairs of particles */
-        for (int i = particleA + 1; i < numParticles; i++)
+        for (int particleB = particleA + 1; particleB < numParticles; particleB++)
 	{
-            /** Calculate the distance between particle A and particle i **/
-            double xx = xi - p->x[i];
-            double yy = yi - p->y[i];
-            double zz = zi - p->z[i];
+            /** Calculate the distance between particle A and particle particleB **/
+            double xx = xi - p->x[particleB];
+            double yy = yi - p->y[particleB];
+            double zz = zi - p->z[particleB];
             
             /** Check if the distance is inside the world **/
             if      (xx < (-sideh)) 	{ xx += side; }
@@ -319,9 +319,9 @@ void force3Law(MD *md, Particles *p, int particleA){
                 fzAcc += tmpFz;
                  
                 /** Calculating thirds Newton's law */
-                p->fx[i] -= tmpFx;
-                p->fy[i] -= tmpFy;
-                p->fz[i] -= tmpFz;  
+                p->fx[particleB] -= tmpFx;
+                p->fy[particleB] -= tmpFy;
+                p->fz[particleB] -= tmpFz;  
                 
     		epot += rrd6 - rrd3;
 		vir  -= rd * r148;
