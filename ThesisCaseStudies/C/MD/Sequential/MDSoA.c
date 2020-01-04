@@ -5,9 +5,7 @@
 #include "MDSoA.h"
 #include "ParticlesSoA.h"
 
-
-/** Creating the MD variable */
-MD *newMDSoA(int size,int *datasizes, int iterations){
+MD *newMD(int size,int *datasizes, int iterations){
     
     int mm;
     
@@ -18,21 +16,19 @@ MD *newMDSoA(int size,int *datasizes, int iterations){
     md->mdsize = mm * mm * mm * 4;
     
     /** Creating the Particles structure */
-    md->particlesSOA = newParticlesSoA(md->mdsize);       
-    initialiseMDSoA(md, mm);
+    md->particlesSOA = newParticles(md->mdsize);       
+    initialiseMD(md, mm);
 
     return md;
 }
 
-/** Free MD memory */
-void freeMDSoA(MD *md){
+void freeMD(MD *md){
     
-    freeParticlesArraysSoA(md->particlesSOA);
+    freeParticles(md->particlesSOA);
     free(md->particlesSOA);
     free(md);
 }
 
-/** Print the MD */
 void printMDvariableControl(MD *md){
     
     printf("--------- MD ---------\n");
@@ -47,8 +43,7 @@ void printMDvariableControl(MD *md){
     printf("interactions = %d\n",md->interactions);
 }
 
-/** Initializing the MD simulation */
-void initialiseMDSoA(MD *md, int mm){
+void initialiseMD(MD *md, int mm){
     
     double a, rcoff;
    
@@ -71,33 +66,33 @@ void initialiseMDSoA(MD *md, int mm){
     md->rcoffs = rcoff * rcoff;
     md->tscale = 16.0 / (1.0 * md->mdsize - 1.0);
     
-    initParticlesSoA       (md->particlesSOA, md->mdsize);
-    particleGenerateSoA    (md->particlesSOA, mm, a);
-    velocityGenerateSoA    (md->particlesSOA, md->mdsize);
-    velocityXYZEscalarSoA  (md);
+    initParticles       (md->particlesSOA, md->mdsize);
+    particleGenerate    (md->particlesSOA, mm, a);
+    velocityGenerate    (md->particlesSOA, md->mdsize);
+    velocityXYZEscalar  (md);
 }
 
 /** Scaling Particles Velocities*/
-void velocityXYZEscalarSoA(MD *md){
+void velocityXYZEscalar(MD *md){
     
     double ts;
     md->ekin = 0.0;
     
-    md->ekin += scalingVelocitySoA (md->particlesSOA,md->mdsize);
+    md->ekin += scalingVelocity (md->particlesSOA,md->mdsize);
     
     ts = md->tscale * md->ekin;
     md->sc = md->h * sqrt(md->tref / ts);
     
-    scaleVelocitySoA(md->particlesSOA,md->mdsize,md->sc);
+    scaleVelocity(md->particlesSOA,md->mdsize,md->sc);
 }
 
 /** Move the particles*/
-void cicleDoMoveSoA(MD *md){
+void cicleDoMove(MD *md){
     calculate_move(md->particlesSOA, md->side);
 }
 
 /** Compute forces with 3 Newton's Law*/ 
-void cicleForcesApproachSoAMPI(MD *md){
+void cicleForcesApproach(MD *md){
 
     md->epot = md->vir = 0.0;
     
@@ -105,12 +100,12 @@ void cicleForcesApproachSoAMPI(MD *md){
 }
 
 /** scale forces, update velocities */
-void cicleMkekinSoA(MD *md){
+void cicleMkekin(MD *md){
     md->sum = mkekin(md->particlesSOA, md->hsq2);
 }
 
 /** Average velocity */
-void cicleVelavgSoA(MD *md){
+void cicleVelavg(MD *md){
     
     md->ekin = md->sum / md->hsq;
     md->vel = 0.0;
@@ -121,18 +116,18 @@ void cicleVelavgSoA(MD *md){
 }
 
 /** Scaling temperature */	
-void scaleTemperatureSoA(MD *md,  int move){
+void scaleTemperature(MD *md,  int move){
     
     if ((move < md->istop) && (((move + 1) % md->irep) == 0))
     {
        md->sc = sqrt(md->tref / (md->tscale * md->ekin));
-       scaleVelocitySoA(md->particlesSOA, md->mdsize, md->sc);  // Scaling velocities
+       scaleVelocity(md->particlesSOA, md->mdsize, md->sc);  // Scaling velocities
        md->ekin = md->tref / md->tscale;
     }
 }	
 
 /** Getting full potential energy */
-void getFullPotentialEnergySoA(MD *md, int move){
+void getFullPotentialEnergy(MD *md, int move){
     
     if (((move + 1) % md->iprint) == 0) 
     {
@@ -143,15 +138,15 @@ void getFullPotentialEnergySoA(MD *md, int move){
 }
 
 /** MD Simulation */
-void runMDSoA(MD *md){
+void runMD(MD *md){
      
     for(int move = 0; move < md->movemx; ++move)
     {
-        cicleDoMoveSoA                  (md);
-        cicleForcesApproachSoAMPI       (md);
-        cicleMkekinSoA                  (md);
-        cicleVelavgSoA                  (md);
-        scaleTemperatureSoA             (md,move);
-        getFullPotentialEnergySoA       (md,move);
+        cicleDoMove                  (md);
+        cicleForcesApproach          (md);
+        cicleMkekin                  (md);
+        cicleVelavg                  (md);
+        scaleTemperature             (md,move);
+        getFullPotentialEnergy       (md,move);
     }   
 }

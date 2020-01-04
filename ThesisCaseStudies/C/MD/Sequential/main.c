@@ -43,11 +43,11 @@ int main(int argc, char** argv){
     int size 	  	= (argc > 2) ? atoi(argv[2]) : 0;
     int iterations 	= (argc > 3) ? atoi(argv[3]) : 50;
     
-    MD *md = newMDSoA(size, datasizes,iterations);
+    MD *md = newMD(size, datasizes,iterations);
     
     /** Running simulation */
     double start = omp_get_wtime();
-    runMDSoA (md);
+    runMD (md);
     double end = omp_get_wtime();
     
     printf("%f\n",end-start);
@@ -57,7 +57,7 @@ int main(int argc, char** argv){
         validate(md);
     }
     
-    freeMDSoA(md);
+    freeMD(md);
     return (EXIT_SUCCESS);
 }
 

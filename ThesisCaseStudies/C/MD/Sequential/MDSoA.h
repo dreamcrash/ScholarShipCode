@@ -12,18 +12,18 @@ extern "C" {
 #endif
 #include "Structs.h"
 
-MD *newMDSoA                       (int size,int *datasizes, int iterations);
-void freeMDSoA                     (MD *md);
-void initialiseMDSoA               (MD *md, int mm);
-void printMDvariableControl        (MD *md);
-void velocityXYZEscalarSoA         (MD *md);
-void cicleDoMoveSoA                (MD *md);
-void cicleForcesApproachSoAMPI     (MD *md);
-void cicleMkekinSoA                (MD *md);
-void cicleVelavgSoA                (MD *md);
-void scaleTemperatureSoA           (MD *md,  int move);
-void getFullPotentialEnergySoA     (MD *md,  int move);
-void runMDSoA                      (MD *md);
+MD *newMD                       (int size,int *datasizes, int iterations);
+void freeMD                     (MD *md);
+void initialiseMD               (MD *md, int mm);
+void printMDvariableControl     (MD *md);
+void velocityXYZEscalar         (MD *md);
+void cicleDoMove                (MD *md);
+void cicleForces                (MD *md);
+void cicleMkekin                (MD *md);
+void cicleVelavg                (MD *md);
+void scaleTemperature           (MD *md,  int move);
+void getFullPotentialEnergy     (MD *md,  int move);
+void runMD                      (MD *md);
 
 #ifdef	__cplusplus
 }

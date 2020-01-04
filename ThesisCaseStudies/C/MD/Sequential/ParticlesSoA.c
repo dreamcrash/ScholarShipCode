@@ -5,9 +5,7 @@
 #include "ParticlesSoA.h"
 #include "Random.h"
 
-
-/** Creating an array of Particles */
-Particles *newParticlesSoA(int mdsize){
+Particles *newParticles(int mdsize){
     
          size_t memoryNeeded = mdsize * sizeof(double);
     
@@ -27,8 +25,7 @@ Particles *newParticlesSoA(int mdsize){
          return aux;
 }
 
-/** Initialize Particles */
-void initParticlesSoA(Particles *p, int mdsize){
+void initParticles(Particles *p, int mdsize){
     
     for(int i = 0; i < mdsize; i++)
     {
@@ -38,8 +35,7 @@ void initParticlesSoA(Particles *p, int mdsize){
     }
 }
 
-/** Free Memory Particles **/
-void freeParticlesArraysSoA(Particles *p){
+void freeParticles(Particles *p){
     
     free(p->fx);
     free(p->fy);
@@ -53,7 +49,7 @@ void freeParticlesArraysSoA(Particles *p){
 }
 
 /** Scales the velocity of all particles **/
-void scaleVelocitySoA(Particles *particles, int numParticles, double sc){
+void scaleVelocity(Particles *particles, int numParticles, double sc){
     
     for(int i = 0; i < numParticles; ++i)
     {
@@ -79,8 +75,7 @@ double getAverageVelocity(Particles *particle){
     return vel;
 }
     
-/** Printing all particles */
-void printParticlesSoA(Particles *p, int numParticles){
+void printParticles(Particles *p, int numParticles){
     
     for (int i = 0; i < numParticles; i++)
     {
@@ -98,12 +93,12 @@ void calculate_move(Particles *p, double side){
     int numberParticles = p->numberParticles;
     for (int i = 0; i < numberParticles; i++)
     {
-	domoveSoA(p, side, i);
+	domove(p, side, i);
     }
 }
 
 /** Moving one particle */
-void domoveSoA(Particles *p, double side, int pos){
+void domove(Particles *p, double side, int pos){
     
      p->x[pos] += p->vx[pos] + p->fx[pos];
      p->y[pos] += p->vy[pos] + p->fy[pos];
@@ -123,13 +118,12 @@ void domoveSoA(Particles *p, double side, int pos){
      p->fx[pos] = p->fy[pos] = p->fz[pos] = 0.0;
 }
 
-/** Force calculation */
 void calculate_force(MD *md){
     
     int numberParticles = md->mdsize;
     for(int i = 0; i < numberParticles; i ++)
     {
-        force3LawSoAReduction(md, i, md->particlesSOA);
+        force3Law(md, md->particlesSOA, i);
     }
 }
 
@@ -157,7 +151,7 @@ double mkekin(Particles *p, double hsq2){
 }
 
 /** Generating particles position **/
-void particleGenerateSoA(Particles *p, int mm, double a){
+void particleGenerate(Particles *p, int mm, double a){
     
         int lg,i,k,j,particle = 0;
         for (lg = 0; lg <= 1; lg++) 
@@ -183,7 +177,7 @@ void particleGenerateSoA(Particles *p, int mm, double a){
 }	
 
 /** Generating Particles Velocity */
-void velocityGenerateSoA(Particles *p, int numOfParticles){
+void velocityGenerate(Particles *p, int numOfParticles){
     
       double r = 0.0;
       
@@ -214,7 +208,7 @@ void velocityGenerateSoA(Particles *p, int numOfParticles){
   }
 
 /** Scaling Velocity component */
-double scalingVelocitySoA(Particles *p, int numOfParticles){
+double scalingVelocity(Particles *p, int numOfParticles){
     
      double sp = 0.0, ekin = 0.0;
      
@@ -268,7 +262,7 @@ double scalingVelocitySoA(Particles *p, int numOfParticles){
 }
 	
 /** Calculating the force of one particle with the remaining */
-void force3LawSoAReduction(MD *md, int particleA, Particles *p){
+void force3Law(MD *md, Particles *p, int particleA){
     
         const double radius = md->rcoffs;
         const double side = md->side;
