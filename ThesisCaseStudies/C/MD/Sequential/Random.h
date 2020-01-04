@@ -1,0 +1,31 @@
+/* 
+ * File:   Random.h
+ * Author: Dreamcrash
+ *
+ */
+
+#ifndef RANDOM_H
+#define	RANDOM_H
+
+#ifdef	__cplusplus
+extern "C" {
+#endif
+    
+typedef struct RANDOM
+{
+    int iseed;
+    double v1,v2;
+}Random;
+
+Random *newRandom           (int iseed, double v1, double v2);
+double update               (Random *r);
+double seed                 (Random *rd);
+
+
+
+#ifdef	__cplusplus
+}
+#endif
+
+#endif	/* RANDOM_H */
+
