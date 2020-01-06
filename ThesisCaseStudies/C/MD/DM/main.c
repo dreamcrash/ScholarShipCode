@@ -1,6 +1,6 @@
 /** 
  *  File:   main.c
- *  Code Produced by Dreamcrash.        
+ *  Code Produced by Dreamcrash       
  *                                                                         
  *                   at                                       
  *                                                                         

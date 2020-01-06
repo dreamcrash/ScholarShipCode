@@ -11,7 +11,7 @@
 extern "C" {
 #endif
 
-// Using a SoA Layout
+// Using a SoA Layout   
 typedef struct PARTICLES{
 
     double *x,  *y,  *z;  // Positions
