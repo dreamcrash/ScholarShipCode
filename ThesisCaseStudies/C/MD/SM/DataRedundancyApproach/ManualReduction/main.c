@@ -16,7 +16,7 @@
  *                  on the version with OpenMP 4.0+ features;
  *              -> Uses less memory since the master thread uses the original particles forces (i.e,  does not replicate them);
  *              -> The downside is that this version is more intrusive and less readable than the one using the OpenMP 4.0+ features. 
- *      -> Improved load balacing by dividing the force calculation between particles among threads in a dynamic fashion.
+ *      -> Improved load balancing by dividing the force calculation between particles among threads in a dynamic fashion.
  * -> Optimizations:
  *      -> 3 Newton's law;
  * 	-> Use of Arrays to represent the particles (cache locality);

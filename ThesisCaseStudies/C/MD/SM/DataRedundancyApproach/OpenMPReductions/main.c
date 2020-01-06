@@ -15,7 +15,7 @@
  *          -> Use a gcc version that supports those features (i.e, GCC 6.1+).
  *          -> Note that for the largest inputs it might be necessary to tune the threads stack size:
  *              -> With "ulimit -s <stacksize>" and OMP_STACKSIZE (e.g., 10m);
- *      -> Dividing the force calculation between particles among threads in a dynamic fashion.
+ *      -> Improved load balancing by dividing the force calculation between particles among threads in a dynamic fashion.
  * -> Optimizations:
  *      -> 3 Newton's law;
  * 	-> Use of Arrays to represent the particles (cache locality);
