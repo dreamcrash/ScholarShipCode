@@ -155,5 +155,5 @@ void runMD(MD *md){
         scaleTemperature             (md,move);
         getFullPotentialEnergy       (md,move);
     } 
-    freeReductionVariables(vars,md->numThreads);
+    freeReductionVariables(thrPrivateData,md->numThreads);
 }
