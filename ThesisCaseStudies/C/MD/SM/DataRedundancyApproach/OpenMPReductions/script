@@ -1,0 +1,10 @@
+EXE=$1
+for thr in 24 32
+do
+        echo "Thr = $thr"
+        for size in 3 4
+        do
+                echo "Size = $size"
+                OMP_STACKSIZE=150m ./$EXE -v $size 1 $thr
+        done
+done
