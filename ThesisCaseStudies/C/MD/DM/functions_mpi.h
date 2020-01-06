@@ -14,8 +14,6 @@ extern "C" {
     
 int getProcessId                        ();
 int numberProcess                       ();
-int master                              ();
-int slaves                              ();
 void reduceForces                       (MD *md);
 void reduceStaticVariable               (MD *md);
 

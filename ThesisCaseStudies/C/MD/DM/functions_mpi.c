@@ -17,7 +17,6 @@ int numberProcess(){
     return numProc;
 }
 
-// Send forces from slaves to master
 void reduceForces(MD *md){
     
     int size = md->mdsize;
@@ -26,7 +25,6 @@ void reduceForces(MD *md){
     MPI_Allreduce(MPI_IN_PLACE, md->particlesSOA->fz, size,MPI_DOUBLE,MPI_SUM,MPI_COMM_WORLD);
 }
 
-// Send static variable from slaves to master
 void reduceStaticVariable(MD *md){
     
     MPI_Allreduce(MPI_IN_PLACE	,&(md->epot)           ,1,MPI_DOUBLE,MPI_SUM,MPI_COMM_WORLD);
