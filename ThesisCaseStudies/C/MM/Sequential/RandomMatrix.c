@@ -15,7 +15,7 @@
  * @param seed  : The seed of the generator
  * @param rows   : The total of rows
  * @param cols   : The total of columns
- * @param m     : The matrix to be fullied
+ * @param m     : The matrix to be fill
  */
 void fillupRandomly (const int min, const int max, const int seed, 
                          const int rows, const int cols, double m[rows][cols]){

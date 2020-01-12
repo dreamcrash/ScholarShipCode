@@ -65,7 +65,7 @@ int main(int argc, char** argv) {
        
         omp_set_dynamic(0);              /** Explicitly disable dynamic teams **/
         omp_set_num_threads(numThreads); /** Use N threads for all parallel regions **/
-        matrixMuliplication(version, numThreads, maxRowA, maxColA, maxRowB, maxColB, A, B, C);
+        matrixMuliplication(version, maxRowA, maxColA, maxRowB, maxColB, A, B, C);
         
         if(validate)
         {

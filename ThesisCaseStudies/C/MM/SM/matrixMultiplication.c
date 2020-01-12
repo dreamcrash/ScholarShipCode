@@ -116,7 +116,7 @@ void naiveMM(   const int maxRowA, const int maxColB, const int maxColA,
                 C[i][j] += A[i][k] * B[k][j];
 }
 
-void matrixMuliplication(   const int version, const int numThreads,
+void matrixMuliplication(   const int version,
                             const int maxRowA, const int maxColA, const int maxRowB, const int maxColB,
                             double A[maxRowA][maxColA], double B[maxColA][maxColB], double C[maxRowA][maxColB]){
     
@@ -127,7 +127,7 @@ void matrixMuliplication(   const int version, const int numThreads,
     }
     else if(version == 1)   
     {
-        optimizedMM(numThreads, maxRowB, maxColB, maxColA, A, B, C);
+        optimizedMM(maxRowB, maxColB, maxColA, A, B, C);
     }
     
     double end = omp_get_wtime();
@@ -242,8 +242,8 @@ void microTiling(const int ii, const int maxRowB, const int maxRowA, const int m
     } // for k
 }
 		
-void optimizedMM(const int numThreads, const int maxRowA, const int maxColB, const int maxColA, 
-                 double A[maxRowA][maxColA], double B[maxColA][maxColB], double C[maxRowA][maxColB]){
+void optimizedMM( const int maxRowA, const int maxColB, const int maxColA, 
+                  double A[maxRowA][maxColA], double B[maxColA][maxColB], double C[maxRowA][maxColB]){
 
     const int maxColC = maxColB, maxRowC = maxRowA;
     const int maxRowB = maxColA;
